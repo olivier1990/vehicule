@@ -11,6 +11,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
+        App\Vehicule::create(
+            [
+                'marque' => 'Nissan',
+                'prix' => 20000,
+                'description' => 'Description',
+                'couleur' => 'rouge',
+                'modele' => 'QASHQAI',
+            ]
+        );
     }
 }
