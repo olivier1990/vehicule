@@ -20,12 +20,14 @@
 
             <h2><a href="/vehicules/{{$vehicule->id}}" accesskey="2" title="">{{ $vehicule->marque }}</a></h2>
             <h3><a href="/vehicules/{{$vehicule->id}}/edit">Modifier</a></h3>
-            <div><a href="/vehicules/{{$vehicule->id}}/edit" ><img src="images/pencil.png" style="width:20px; height:20px;"></a></div>
+            <div><a href="/vehicules/{{$vehicule->id}}/edit" ></a></div>
         </div>
-        <p>{{$vehicule->description}}</p>
-        <p>{{$vehicule->prix}}</p>
-        <p>{{$vehicule->couleur}}</p>
-        <p>{{$vehicule->modele}}</p>
+
+        <p>Modèle : {{$vehicule->modele}}</p>
+        <p>Description : {{$vehicule->description}}</p>
+        <p>Prix : {{$vehicule->prix}} $</p>
+        <p>Couleur : {{$vehicule->couleur}}</p>
+        
         <form action="{{ url('/vehicules', ['id' => $vehicule->id]) }}" method="post">
             <input type="submit" class="button" style="cursor: pointer;" value="Delete" />
             <input type="hidden" name="_method" value="delete" />
