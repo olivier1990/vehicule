@@ -14,7 +14,8 @@ class VehiculeController extends Controller
      */
     public function index()
     {
-        //
+        $vehicules = Vehicule::all();
+        return view('index',['variables'=>$vehicules]);
     }
 
     /**
@@ -24,7 +25,7 @@ class VehiculeController extends Controller
      */
     public function create()
     {
-        //
+        return view('create');
     }
 
     /**
@@ -35,7 +36,21 @@ class VehiculeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'marque' => 'bail|required|between:3,20|alpha',
+            'prix' => 'bail|required|numeric',
+            'modele' => 'bail|required|max:10',
+            'couleur' => 'bail|required|max:10'
+        ]);
+
+        $vehicule = new Vehicule;
+        $vehicule->marque = $request->marque;
+        $vehicule->prix = $request->prix;
+        $vehicule->description = $request->description;
+        $vehicule->modele = $request->modele;
+        $vehicule->couleur = $request->couleur;
+        $vehicule->save();
+        return $this->show($vehicule->id);
     }
 
     /**
