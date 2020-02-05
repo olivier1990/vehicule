@@ -59,9 +59,10 @@ class VehiculeController extends Controller
      * @param  \App\Vehicule  $vehicule
      * @return \Illuminate\Http\Response
      */
-    public function show(Vehicule $vehicule)
+    public function show($id)
     {
-        //
+        $vehicule = Vehicule::where('id',$id)->firstOrFail();
+        return view('vehicule',['variable'=>$vehicule]);
     }
 
     /**
@@ -70,9 +71,11 @@ class VehiculeController extends Controller
      * @param  \App\Vehicule  $vehicule
      * @return \Illuminate\Http\Response
      */
-    public function edit(Vehicule $vehicule)
+    public function edit($id)
     {
-        //
+        $where = array('id' => $id);
+        $vehicule  = vehicule::where($where)->firstOrFail();
+        return view('edit',['vehicule' => $vehicule])->render();
     }
 
     /**
@@ -82,9 +85,20 @@ class VehiculeController extends Controller
      * @param  \App\Vehicule  $vehicule
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Vehicule $vehicule)
+    public function update(Request $request, $id)
     {
-        //
+        $vehicule = Vehicule::find($id);
+        if($vehicule)
+        {
+            $vehicule->marque = $request->marque;
+            $vehicule->couleur = $request->couleur;
+            $vehicule->description = $request->description;
+            $vehicule->modele = $request->modele;
+            $vehicule->prix = $request->prix;
+            $vehicule->save();
+        }
+                //return Response::json($language);
+                return $this->show($vehicule->id);
     }
 
     /**
@@ -93,8 +107,10 @@ class VehiculeController extends Controller
      * @param  \App\Vehicule  $vehicule
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Vehicule $vehicule)
+    public function destroy($id)
     {
-        //
+        $cour = Vehicule::where('id',$id)->delete();
+
+        return $this->index();
     }
 }
