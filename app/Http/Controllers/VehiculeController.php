@@ -62,7 +62,7 @@ class VehiculeController extends Controller
     public function show($id)
     {
         $vehicule = Vehicule::where('id',$id)->firstOrFail();
-        return view('vehicule',['variable'=>$vehicule]);
+        return view('show',['variable'=>$vehicule]);
     }
 
     /**
@@ -97,7 +97,6 @@ class VehiculeController extends Controller
             $vehicule->prix = $request->prix;
             $vehicule->save();
         }
-                //return Response::json($language);
                 return $this->show($vehicule->id);
     }
 
